@@ -44,7 +44,9 @@ npm run build
 | `Demo` |
 | :----: |
 
-[LIVE](https://vibetubewebsite.netlify.app/)
+[FRONTEND](https://codeswipe.netlify.app/)
+
+[BACKEND](https://codeswipe-backend.onrender.com/api-docs/)
 
 | `Project Highlights` |
 | :------------------: |
