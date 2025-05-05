@@ -1,0 +1,76 @@
+import React, { useEffect } from 'react'
+import axios from "axios"
+import { addRequests, removeRequests } from '../utils/requestSlice'
+import { BASE_URL } from '../utils/constants'
+import { useDispatch, useSelector } from 'react-redux'
+
+const Requests = () => {
+    const requests = useSelector(state => state?.requests)
+    const dispatch = useDispatch()
+
+    const reviewRequest = async (status, _id) => {
+        try {
+            const token = localStorage.getItem("token");
+            // eslint-disable-next-line no-unused-vars
+            const response = await axios.post(BASE_URL + "/request/review/" + status + "/" +  _id, {}, {
+
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+            })
+            dispatch(removeRequests(_id))
+            } catch (error) {
+            console.log("ERROR: ", error)
+        }
+    }
+
+    const fetchRequests = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const response = await axios.get(BASE_URL + "/user/requests/received", {
+
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+           dispatch(addRequests(response?.data?.requests))
+          } catch (error) {
+             console.log("ERROR:", error)
+        } 
+    }
+
+    useEffect(()=>{
+        fetchRequests()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+ if(!requests) return;
+
+    if(requests.length === 0) return <h1 className='text-bold text-2xl flex justify-center my-10'>No Requests Found</h1>
+  return (
+    <div className='text-center my-10'>
+      <h1 className='text-bold text-white text-4xl'>Requests</h1>
+      {requests.map(request => { 
+        const {_id, firstName, lastName, age, gender, skills, about, photoUrl} = request.fromUserId
+        return (
+        <div key={_id} className='flex justify-between items-center m-4 p-4 border rounded-lg bg-base-200 w-2/3 mx-auto'>
+            <div>
+            <img alt="image" className='w-20 h-20 rounded-full' src={photoUrl}/>
+            </div>
+            <div className='text-left mx-4'>
+            <h2 className='font-bold text-xl'>{firstName} {lastName} </h2>
+            {age && gender && <p>{age} {gender}</p>}
+            <p>{about}</p>
+            <p>{skills}</p>
+            </div>
+             <div>
+            <button className="btn btn-primary mx-2" onClick={() =>reviewRequest("rejected", request._id)}>Reject</button>
+            <button className="btn btn-secondary mx-2" onClick={()=>reviewRequest("accepted", request._id)}>Accept</button>
+            </div>
+      </div>
+    )})}
+    </div>
+  )
+}
+
+export default Requests
