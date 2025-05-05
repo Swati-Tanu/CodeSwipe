@@ -52,18 +52,29 @@ npm run build
  <div align = "center">
    <h2>Feed Page</h2>
 
+![image](https://github.com/user-attachments/assets/3957e589-9cd3-4798-b43e-8bedb1489fe1)
+
+
+  <h2>Profile Page</h2>
+  
+![image](https://github.com/user-attachments/assets/a559c79c-38d4-42ce-99f9-c25cd393318f)
+
    
    
   <h2>Connection Request List</h2>
 
+![image](https://github.com/user-attachments/assets/b687485e-f0f1-49d3-ad1a-dbee59c76f2c)
 
 
   <h2>Real Time Chat</h2>
+
+![image](https://github.com/user-attachments/assets/0cf87ae7-b31d-475b-9e47-29fb87fdc807)
 
 
 
   <h2>Razorpay Integration</h2>
 
+![image](https://github.com/user-attachments/assets/e14eca3c-1ac5-489c-a3fa-36c68d2edd1d)
 
 
   <div/>
