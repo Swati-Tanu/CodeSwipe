@@ -7,19 +7,28 @@ import Connections from "./components/Connections"
 import Requests from "./components/Requests"
 import Premium from "./components/Premium"
 import Chat from "./components/Chat"
+import Landing from "./components/Landing"
+import ProtectedRoute from "./components/ProtectedRoute"
 import { Provider } from "react-redux"
 import appStore from "./utils/appStore"
 
 function App() {
-
   return (
     <>
     <Provider store={appStore}>
     <BrowserRouter basename="/">
     <Routes>
-      <Route path="/" element={<Body/>}> 
-        <Route path="/" element={<Feed/>}/> 
-        <Route path="/login" element={<Login/>}/> 
+      {/* Public routes */}
+      <Route path="/" element={<Landing/>}/> 
+      <Route path="/login" element={<Login/>}/> 
+      
+      {/* Protected routes */}
+      <Route path="/" element={
+        <ProtectedRoute>
+          <Body/>
+        </ProtectedRoute>
+      }> 
+        <Route path="/feed" element={<Feed/>}/> 
         <Route path="/profile" element={<Profile/>}/> 
         <Route path="/connections" element={<Connections/>}/> 
         <Route path="/requests" element={<Requests/>}/> 

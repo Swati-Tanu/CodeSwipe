@@ -13,47 +13,45 @@ const Login = () => {
     const [isLoginForm, setIsLoginForm] = useState(true)
     const [error, setError] = useState("")
     const dispatch = useDispatch()
-    const navigate = useNavigate() 
+    const navigate = useNavigate()
 
     const handleLogin = async () => {
-     try {
-       const response = await axios.post( BASE_URL + "/login", {
+    try {
+      const response = await axios.post( BASE_URL + "/login", {
         emailId,
         password
-     },
-    ) 
+      }) 
 
-    const { token } = response.data;
-
-    localStorage.setItem("token", token);
-    
-     dispatch(addUser(response?.data?.user))
-     navigate("/")
-     } catch (error) {
+      const { token } = response.data;
+      localStorage.setItem("token", token);
+      
+      dispatch(addUser(response?.data?.user))
+      navigate("/feed")  // Changed from "/" to "/feed"
+    } catch (error) {
       setError(error?.response?.data?.ERROR || "Something went wrong!")
       console.log("ERROR: ", error)
-     }
     }
+  }
 
-    const handleSignUp = async () => {
-        try {
-          const response = await axios.post( BASE_URL + "/signup", {
-            firstName,
-            lastName,
-            emailId,
-            password
-        },
-      ) 
-          const { token } = response.data;
-          localStorage.setItem("jwtToken", token);
+  const handleSignUp = async () => {
+    try {
+      const response = await axios.post( BASE_URL + "/signup", {
+        firstName,
+        lastName,
+        emailId,
+        password
+      }) 
+      
+      const { token } = response.data;
+      localStorage.setItem("token", token);  // Changed from "jwtToken" to "token"
 
-        dispatch(addUser(response?.data?.user))
-        navigate("/profile")
-      } catch (error) {
-        setError(error?.response?.data?.ERROR || "Something went wrong!")
-        console.log("ERROR: ", error)
-      }    
-    }
+      dispatch(addUser(response?.data?.user))
+      navigate("/profile")  // This will work now because token is set
+    } catch (error) {
+      setError(error?.response?.data?.ERROR || "Something went wrong!")
+      console.log("ERROR: ", error)
+    }    
+  }
 
  return (
   <div className="flex justify-center my-10">
